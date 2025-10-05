@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Md Khorshed Alom - Portfolio</title>
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* Animated binary background */
+    body::before {
+      content: "1010100100110010110101 0101101010010010";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      color: rgba(0, 255, 200, 0.05);
+      line-height: 1.5;
+      animation: scrollCode 20s linear infinite;
+      white-space: pre-wrap;
+    }
+    @keyframes scrollCode {
+      from { transform: translateY(0); }
+      to { transform: translateY(-100%); }
+    }
+    .navbar {
+      background: rgba(13, 17, 23, 0.9);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 10px rgba(0,255,200,0.2);
+    }
+    .navbar-brand {
+      font-weight: 700;
+      color: #00ffc8 !important;
+      letter-spacing: 2px;
+      font-size: 1.5rem;
+      font-family: 'Fira Code', monospace;
+    }
+    .nav-link {
+      color: #e6edf3 !important;
+      font-weight: 500;
+      margin-right: 10px;
+      transition: color 0.2s;
+    }
+    .nav-link:hover {
+      color: #00ffc8 !important;
+    }
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0d1117 60%, #161b22 100%);
+      position: relative;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #00ffc8;
+      text-shadow: 0 2px 15px #00ffc855;
+      font-family: 'Fira Code', monospace;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #c9d1d9;
+      margin-bottom: 30px;
+    }
+    .btn-custom {
+      border-radius: 30px;
+      background: linear-gradient(90deg, #00ffc8 60%, #008cff 100%);
+      color: #0d1117;
+      font-weight: 600;
+      box-shadow: 0 4px 20px #00ffc833;
+      border: none;
+      transition: all 0.3s;
+    }
+    .btn-custom:hover {
+      background: linear-gradient(90deg, #008cff 60%, #00ffc8 100%);
+      color: #fff;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 30px #00ffc866;
+    }
+    .about img {
+      max-width: 160px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 4px solid #00ffc8;
+      box-shadow: 0 4px 20px #00ffc833;
+    }
+    .section-title {
+      font-weight: 700;
+      color: #00ffc8;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      font-family: 'Fira Code', monospace;
+      text-shadow: 0 2px 10px #00ffc833;
+    }
+    .card {
+      border: none;
+      border-radius: 15px;
+      background: #161b22;
+      color: #e6edf3;
+      box-shadow: 0 4px 20px rgba(0,255,200,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0,255,200,0.3);
+    }
+    .card h5 {
+      color: #00ffc8;
+      font-weight: 600;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .skill-badge {
+      background: linear-gradient(90deg, #00ffc8 60%, #008cff 100%);
+      color: #0d1117;
+      font-weight: 600;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 8px #00ffc833;
+      transition: transform 0.2s;
+    }
+    .skill-badge:hover {
+      transform: scale(1.1);
+      color: #fff;
+    }
+    footer {
+      background: #0d1117;
+      color: #00ffc8;
+      text-align: center;
+      padding: 18px 0;
+      margin-top: 50px;
+      font-family: 'Fira Code', monospace;
+      box-shadow: 0 -2px 10px rgba(0,255,200,0.2);
+    }
+    a {
+      color: #00ffc8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #008cff;
+    }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .section-title {
+        font-size: 1.4rem;
+      }
+      .about img {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Khorshed Alom</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header>
+    <div class="position-relative z-1">
+      <h1>&lt;Hello World! /&gt;</h1>
+      <p>Md Khorshed Alom — Software Engineer | Web Developer | AI Enthusiast</p>
+      <a href="#contact" class="btn btn-custom btn-lg mt-3">Contact Me</a>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="about py-5 text-center">
+    <div class="container">
+      <img src="me.jpg" alt="Profile Picture">
+      <h2 class="section-title">About Me</h2>
+      <p class="lead">I am a passionate software engineer experienced in <b>Frontend, Backend, and AI-driven applications</b>.  
+        I love building user-friendly web apps with <span style="color:#00ffc8;">modern UI/UX</span> and scalable architectures.</p>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-5">
+    <div class="container">
+      <h2 class="section-title text-center">Work Experience</h2>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="card p-4 h-100"><h5>Web Developer</h5><p class="text-success">Pixellcoder.com | Aug 2023 - Nov 2024</p><p>Built custom WordPress themes & plugins, optimized website performance, collaborated with teams.</p></div></div>
+        <div class="col-md-4"><div class="card p-4 h-100"><h5>Software Developer</h5><p class="text-success">Smart Software Ltd. | Apr 2022 - Apr 2023</p><p>Developed web-based software, maintained systems, and worked in agile teams.</p></div></div>
+        <div class="col-md-4"><div class="card p-4 h-100"><h5>Research Assistant</h5><p class="text-success">Stamford University | Jul 2022 - Jun 2023</p><p>Worked on AI-based physiotherapy systems funded by Bangladesh MoST.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="py-5 bg-dark">
+    <div class="container">
+      <h2 class="section-title text-center">Education</h2>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="card p-4 h-100"><h5>BSc in CSE</h5><p class="text-success">Stamford University Bangladesh | GPA: 3.76/4</p></div></div>
+        <div class="col-md-4"><div class="card p-4 h-100"><h5>HSC - Science</h5><p class="text-success">Jashore Govt. City College | GPA: 3.17/5</p></div></div>
+        <div class="col-md-4"><div class="card p-4 h-100"><h5>SSC - Science</h5><p class="text-success">Shandhani School & College | GPA: 4.67/5</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-5">
+    <div class="container text-center">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-list">
+        <span class="skill-badge">HTML</span>
+        <span class="skill-badge">CSS</span>
+        <span class="skill-badge">JavaScript</span>
+        <span class="skill-badge">Bootstrap</span>
+        <span class="skill-badge">PHP (Laravel)</span>
+        <span class="skill-badge">WordPress</span>
+        <span class="skill-badge">Python (ML)</span>
+        <span class="skill-badge">Git/GitHub</span>
+        <span class="skill-badge">MySQL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-5 bg-dark text-center">
+    <div class="container">
+      <h2 class="section-title">Contact Me</h2>
+      <div class="card p-4 mx-auto" style="max-width:500px;">
+        <p>Email: <a href="mailto:khorshed.cse.se@gmail.com">khorshed.cse.se@gmail.com</a></p>
+        <p>Phone: <a href="tel:+8801303713906">+880 1303713906</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/engr-khorshed-alom/" target="_blank">linkedin.com/in/engr-khorshed-alom</a></p>
+        <p>GitHub: <a href="https://github.com/khorshed31" target="_blank">github.com/khorshed31</a></p>
+        <p>WhatsApp: <a href="https://wa.me/8801303713906" target="_blank">Chat Now</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Md Khorshed Alom. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

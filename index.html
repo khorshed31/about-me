@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Md Khorshed Alom — Software Engineer Card</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #5b9cff;
+      --accent-2:#6ee7b7;
+      --ink: #e9eefc;
+      --card-bg: rgba(16,18,27,0.65);
+      --glass: rgba(255,255,255,0.08);
+    }
+    html,body{height:100%}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, #0b1220 0%, #05070d 35%, #03040a 100%);
+      color: var(--ink);
+      overflow-x:hidden;
+    }
+
+    /* --- Animated background orbs --- */
+    .orb{
+      position:fixed; inset:auto;
+      width:440px; height:440px; border-radius:50%;
+      filter: blur(60px); opacity:.35; z-index:0; pointer-events:none;
+      background: conic-gradient(from 120deg, var(--accent), #9b8cff, #00e5a8, var(--accent));
+      animation: float 16s ease-in-out infinite;
+    }
+    .orb.orb-2{ width:560px;height:560px; right:-140px; bottom:-140px; animation-duration:22s; opacity:.25;}
+    .orb.orb-3{ width:320px;height:320px; left:-100px; bottom:8vh; animation-duration:18s; opacity:.22;}
+
+    @keyframes float{
+      0%{transform: translate(-10px, 0) rotate(0deg);}
+      50%{transform: translate(10px, -20px) rotate(180deg);}
+      100%{transform: translate(-10px, 0) rotate(360deg);}
+    }
+
+    /* --- Particle canvas holder (behind content) --- */
+    #bgParticles{
+      position: fixed; inset: 0; z-index: 0; opacity:.18;
+      pointer-events:none;
+    }
+
+    /* --- Entry reveal + Staggers --- */
+    .reveal{ opacity:0; transform: translateY(30px) scale(.98) rotateX(6deg); filter: saturate(.85); transform-origin: 50% 80%; }
+    .reveal.show{ animation: pop-in .9s cubic-bezier(.2,.7,.2,1) forwards; }
+    @keyframes pop-in{
+      0%{opacity:0; transform: translateY(30px) scale(.98) rotateX(6deg); filter:saturate(.8) blur(1px);}
+      60%{opacity:1; transform: translateY(-6px) scale(1.01) rotateX(0deg); filter:saturate(1.1) blur(0);}
+      100%{opacity:1; transform: translateY(0) scale(1) rotateX(0); filter:saturate(1);}
+    }
+    .stagger > *{ opacity:0; transform: translateY(12px); }
+    .stagger.show > *{ animation: fadeUp .6s cubic-bezier(.2,.7,.2,1) forwards; }
+    .stagger.show > *:nth-child(1){ animation-delay:.05s}
+    .stagger.show > *:nth-child(2){ animation-delay:.12s}
+    .stagger.show > *:nth-child(3){ animation-delay:.18s}
+    .stagger.show > *:nth-child(4){ animation-delay:.24s}
+    .stagger.show > *:nth-child(5){ animation-delay:.30s}
+    @keyframes fadeUp{
+      to{opacity:1; transform: translateY(0);}
+    }
+
+    /* --- Card styling --- */
+    .se-card{
+      backdrop-filter: blur(16px) saturate(120%);
+      background: linear-gradient(180deg, var(--card-bg), rgba(16,18,27,0.45));
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 0 0 1px rgba(91,156,255,.06);
+      border-radius: 1.4rem;
+      position:relative; z-index:1;
+      will-change: transform;
+      transform-style: preserve-3d;
+    }
+    .shine{
+      position:absolute; inset:0; border-radius:inherit; overflow:hidden; pointer-events:none;
+    }
+    .shine::before{
+      content:""; position:absolute; inset:-200%;
+      background: radial-gradient(800px 400px at var(--mx,50%) var(--my,50%),
+                 rgba(255,255,255,.10), transparent 60%);
+      transition: .15s linear;
+    }
+    .name{ letter-spacing:.2px; font-weight:800; font-size:clamp(1.25rem,3.4vw,2rem); }
+    .title{ color:#b7c6ff; font-weight:600; letter-spacing:.6px; }
+
+    /* --- Avatar image with glow ring --- */
+    .avatar-img{
+      width: 92px; height: 92px; border-radius: 22px; overflow:hidden; position:relative;
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 0 24px rgba(91,156,255,.28);
+      flex-shrink: 0;
+      isolation:isolate;
+    }
+    .avatar-img img{ width:100%; height:100%; object-fit:cover; transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+    .avatar-img:hover img{ transform: scale(1.07); }
+    .avatar-img::after{
+      content:""; position:absolute; inset:-6px; border-radius: 26px; z-index:-1;
+      background: conic-gradient(from 0deg, var(--accent), #9b8cff, var(--accent-2), var(--accent));
+      filter: blur(14px); opacity:.55;
+      animation: spin 8s linear infinite;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
+
+    /* --- Badges --- */
+    .stack-badge{
+      --bg:linear-gradient(135deg, rgba(91,156,255,.22), rgba(110,231,183,.15));
+      background: var(--bg);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding:.35rem .7rem; font-size:.8rem; color:#dfe8ff;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+
+    /* --- Buttons (glass + magnetic) --- */
+    .btn-glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.14);
+      color:#eaf2ff;
+      transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+      will-change: transform;
+    }
+    .btn-glass:hover{
+      border-color: rgba(91,156,255,.6);
+      box-shadow: 0 10px 28px rgba(91,156,255,.26);
+      color:#fff;
+      transform: translateY(-2px);
+    }
+    .btn-glass i{ opacity:.95; }
+
+    /* --- Divider --- */
+    .divider{ height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); }
+
+    /* --- Utility --- */
+    .pad{ padding: clamp(1rem, 2.5vw, 2rem); }
+    .muted{ color:#c9d6ffcc; }
+    a.link{ color:#cfe2ff; text-decoration:none; }
+    a.link:hover{ color:#ffffff; text-decoration:underline; }
+    footer{ color:#9fb4ffbb; font-size:.85rem; }
+
+    /* --- Reduced motion --- */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background layers -->
+  <canvas id="bgParticles"></canvas>
+  <div class="orb" style="left:-160px; top:-160px"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <main class="container py-5 py-md-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+
+        <!-- Software Engineer Card -->
+        <section class="se-card reveal" id="seCard" aria-label="Software Engineer Profile Card">
+          <div class="shine"></div>
+          <div class="pad">
+            <!-- Header -->
+            <div class="d-flex align-items-center gap-3 stagger" id="topStagger">
+              <div class="avatar-img">
+                <!-- Replace with your actual image path or URL -->
+                <img src="me.jpg" alt="Md Khorshed Alom">
+              </div>
+              <div>
+                <h1 class="name mb-0">Md Khorshed Alom</h1>
+                <div class="title">Software Engineer • Web & ML Enthusiast</div>
+              </div>
+            </div>
+
+            <!-- Tech badges -->
+            <div class="d-flex flex-wrap gap-2 mt-3 stagger" id="badgeStagger">
+              <span class="stack-badge"><i class="bi bi-code-slash me-1"></i>Laravel • JS • WordPress</span>
+              <span class="stack-badge"><i class="bi bi-cpu me-1"></i>Python (ML basics)</span>
+              <span class="stack-badge"><i class="bi bi-git me-1"></i>Git/GitHub</span>
+              <span class="stack-badge"><i class="bi bi-cloud-arrow-up me-1"></i>Deploy: cPanel/VPS</span>
+            </div>
+
+            <div class="divider my-4"></div>
+
+            <!-- Quick actions -->
+            <div class="row g-2 g-md-3 stagger" id="btnStagger">
+              <div class="col-6">
+                <a class="btn btn-lg w-100 btn-glass magnet" href="protfolio.html" target="_blank" rel="noopener">
+                  <i class="bi bi-window me-2"></i>Visit Website
+                </a>
+              </div>
+              <div class="col-6">
+                <a class="btn btn-lg w-100 btn-glass magnet" href="tel:+8801303713906">
+                  <i class="bi bi-telephone me-2"></i>Phone
+                </a>
+              </div>
+              <div class="col-6">
+                <a class="btn btn-lg w-100 btn-glass magnet" href="https://wa.me/8801303713906?text=Hi%20Khorshed%2C%20I%27d%20like%20to%20connect." target="_blank" rel="noopener">
+                  <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                </a>
+              </div>
+              <div class="col-6">
+                <a class="btn btn-lg w-100 btn-glass magnet" href="mailto:khorshed.cse.se@gmail.com?subject=Hello%20Khorshed&body=Hi%20Khorshed%2C">
+                  <i class="bi bi-envelope-at me-2"></i>Email
+                </a>
+              </div>
+            </div>
+
+            <div class="divider my-4"></div>
+
+            <!-- Contact & links -->
+            <div class="row gy-2 stagger" id="linksStagger">
+              <div class="col-12 col-lg-6">
+                <div class="muted"><i class="bi bi-geo-alt me-2"></i>Dhaka, Bangladesh</div>
+                <div class="mt-1">
+                  <a class="link me-3" href="https://github.com/khorshed31" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i>GitHub</a>
+                  <a class="link" href="https://www.hackerrank.com/profile/khorshed31" target="_blank" rel="noopener"><i class="bi bi-braces-asterisk me-1"></i>HackerRank</a>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="muted"><i class="bi bi-at me-2"></i>khorshed.cse.se@gmail.com</div>
+                <div class="muted"><i class="bi bi-phone me-2"></i>(+880) 01303713906</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="text-center mt-4">
+          <small>© <span id="year"></span> Md Khorshed Alom — Built with Bootstrap 5</small>
+        </footer>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Refs
+    const card = document.getElementById('seCard');
+    const shine = card.querySelector('.shine');
+
+    // --- Entry reveal + staggers ---
+    window.addEventListener('load', () => {
+      setTimeout(()=> card.classList.add('show'), 220);
+      // stagger groups
+      const groups = [ 'topStagger', 'badgeStagger', 'btnStagger', 'linksStagger' ];
+      groups.forEach((id,i)=>{
+        const el = document.getElementById(id);
+        setTimeout(()=> el.classList.add('show','stagger'), 350 + i*120);
+      });
+      sparkle(card);            // one-time sparkle on first hover
+      animateParticles();       // kick off particle background
+    });
+
+    // --- Live shine follows cursor ---
+    card.addEventListener('pointermove', (e)=>{
+      const r = card.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * 100;
+      const my = ((e.clientY - r.top) / r.height) * 100;
+      shine.style.setProperty('--mx', mx + '%');
+      shine.style.setProperty('--my', my + '%');
+    });
+
+    // --- 3D Tilt effect ---
+    let px=0, py=0;
+    card.addEventListener('pointermove', (e)=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      const rx = (py - y) * 8;
+      const ry = (x - px) * 10;
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+      px=x; py=y;
+    });
+    card.addEventListener('pointerleave', ()=> card.style.transform = 'rotateX(0) rotateY(0)');
+
+    // --- Magnetic buttons (subtle pull toward cursor) ---
+    document.querySelectorAll('.magnet').forEach(btn=>{
+      const strength = 18; // px
+      let raf;
+      btn.addEventListener('pointermove', e=>{
+        const r = btn.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width/2);
+        const dy = e.clientY - (r.top + r.height/2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=>{
+          btn.style.transform = `translate(${(dx/r.width)*strength}px, ${(dy/r.height)*strength}px)`;
+        });
+      });
+      btn.addEventListener('pointerleave', ()=>{
+        cancelAnimationFrame(raf);
+        btn.style.transform = 'translate(0,0)';
+      });
+    });
+
+    // --- Sparkles on first hover ---
+    let sparked = false;
+    function sparkle(el){
+      if(sparked) return;
+      el.addEventListener('pointerenter', ()=>{
+        if(sparked) return; sparked = true;
+        const N = 26;
+        for(let i=0;i<N;i++){
+          const s = document.createElement('span');
+          s.style.position='absolute';
+          s.style.left = (18 + Math.random()*64) + '%';
+          s.style.top  = (20 + Math.random()*60) + '%';
+          const size = 4 + Math.random()*8;
+          s.style.width = s.style.height = size+'px';
+          s.style.borderRadius='50%';
+          s.style.background = 'radial-gradient(circle, rgba(255,255,255,.95), rgba(91,156,255,.6) 40%, transparent 70%)';
+          s.style.boxShadow='0 0 24px rgba(91,156,255,.55)';
+          s.style.filter='blur(.2px)';
+          s.style.zIndex=2; s.style.pointerEvents='none';
+          s.style.opacity='1';
+          el.appendChild(s);
+
+          // animate outward
+          const dx = (Math.random()-.5)*160;
+          const dy = (Math.random()-.5)*120;
+          const duration = 600 + Math.random()*700;
+          s.animate([
+            { transform:'translate(0,0) scale(1)', opacity:1 },
+            { transform:`translate(${dx}px, ${dy}px) scale(.6)`, opacity:0 }
+          ], { duration, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards' });
+          setTimeout(()=> s.remove(), duration + 80);
+        }
+      }, {once:true});
+    }
+
+    // --- Subtle particle background (no libs) ---
+    const canvas = document.getElementById('bgParticles');
+    const ctx = canvas.getContext('2d');
+    let particles = [], w=0, h=0, rid;
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = Array.from({length: Math.min(90, Math.floor(w*h/22000))}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx: (Math.random()-.5)*0.35,
+        vy: (Math.random()-.5)*0.35,
+        r: 1 + Math.random()*1.6
+      }));
+    }
+    window.addEventListener('resize', resize);
+
+    function animateParticles(){
+      resize();
+      cancelAnimationFrame(rid);
+      const linkDist = 120;
+      (function step(){
+        ctx.clearRect(0,0,w,h);
+        // move + draw
+        for(const p of particles){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x<0||p.x>w) p.vx*=-1;
+          if(p.y<0||p.y>h) p.vy*=-1;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle='rgba(173,199,255,.55)';
+          ctx.fill();
+        }
+        // links
+        for(let i=0;i<particles.length;i++){
+          for(let j=i+1;j<particles.length;j++){
+            const a=particles[i], b=particles[j];
+            const dx=a.x-b.x, dy=a.y-b.y, d=Math.hypot(dx,dy);
+            if(d<linkDist){
+              ctx.globalAlpha = 1 - d/linkDist;
+              ctx.strokeStyle = 'rgba(101,158,255,.35)';
+              ctx.lineWidth = .6;
+              ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+          }
+        }
+        rid = requestAnimationFrame(step);
+      })();
+    }
+
+    // --- Accessibility: stop bg animation if reduced motion ---
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      cancelAnimationFrame(rid);
+      canvas.remove();
+    }
+  </script>
+</body>
+</html>
