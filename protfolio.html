@@ -271,6 +271,18 @@
       border: 1px solid rgba(255,255,255,.22);
     }
 
+    .brand-logo{
+      width:220px; height:60px;
+      border-radius:8px;         /* set to 50% if you want a circle */
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow: 0 0 12px rgba(91,156,255,.25);
+    }
+    [data-theme="light"] .brand-logo{
+      border-color: rgba(0,0,0,.08);
+      box-shadow:none;
+    }
+
     /* ==================== Responsive tweaks ==================== */
     @media (min-width: 992px){ .navbar .navbar-nav{ flex-direction: row; } }
     @media (prefers-reduced-motion: reduce){*{animation:none !important; transition:none !important}}
@@ -284,8 +296,16 @@
   <!-- ==================== NAVBAR ==================== -->
   <nav class="navbar navbar-dark fixed-top glass-nav navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand brand-badge" href="index.html">
-        <span class="brand-dot" aria-hidden="true"></span> MKA
+      <a class="navbar-brand brand-badge d-flex align-items-center" href="index.html">
+        <!-- Logo -->
+        <picture>
+          <img
+            src="logo.png"
+            alt="Md Khorshed Alom — logo"
+            class="brand-logo me-2"
+            width="32" height="32"
+            loading="lazy" decoding="async">
+        </picture>
       </a>
 
       <!-- Desktop nav -->
@@ -293,6 +313,7 @@
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#skills">Toolkit</a></li>
         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#poster">Poster Presentation</a></li>
         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
         <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -320,6 +341,7 @@
         <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#skills">Toolkit</a></li>
         <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#poster">Poster Presentation</a></li>
         <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#experience">Experience</a></li>
         <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#education">Education</a></li>
         <li class="nav-item"><a class="nav-link" data-bs-dismiss="offcanvas" href="#contact">Contact</a></li>
@@ -453,7 +475,6 @@
             <div class="filter-pill active" data-filter="all" role="tab" tabindex="0">All</div>
             <div class="filter-pill" data-filter="webapp" role="tab" tabindex="0">Web Apps</div>
             <div class="filter-pill" data-filter="wordpress" role="tab" tabindex="0">WordPress</div>
-            <div class="filter-pill" data-filter="research" role="tab" tabindex="0">Research</div>
           </div>
         </div>
       </div>
@@ -476,15 +497,6 @@
             <div class="muted mb-2">Laravel, MySQL, Bootstrap</div>
             <p class="mb-3">Inventory, billing, reporting + <strong>Laravel API</strong>, Eloquent models, and role-based auth.</p>
             <a class="link" href="https://github.com/khorshed31/POS" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-1" aria-hidden="true"></i>Repository</a>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-xl-5" data-tags="webapp research">
-          <div class="p-3 p-md-4 glass project-card h-100">
-            <div class="thumb mb-3"><i class="bi bi-activity display-6" aria-hidden="true"></i></div>
-            <h5 class="mb-1">2D Video-based Physio Assist</h5>
-            <div class="muted mb-2">Django, Python, ML</div>
-            <p class="mb-3">Prototype for remote physiotherapy via pose analysis and feedback UI.</p>
           </div>
         </div>
 
@@ -521,6 +533,39 @@
       </div>
     </div>
   </section>
+
+
+  <!-- ==================== POSTER PRESENTATION ==================== -->
+  <section class="section" id="poster">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+          <div class="glass p-4 p-md-5 reveal">
+            <h2 class="section-title h3 mb-3">Poster Presentation</h2>
+
+            <div class="row g-3 g-md-4">
+              <!-- Moved item from Projects -->
+              <div class="col-12 col-md-6 col-xl-5">
+                <div class="p-3 p-md-4 glass project-card h-100">
+                  <div class="thumb mb-3"><i class="bi bi-activity display-6" aria-hidden="true"></i></div>
+                  <h5 class="mb-1">2D Video-based Physio Assist</h5>
+                  <div class="muted mb-2">Django, Python, ML</div>
+                  <p class="mb-3">Prototype for remote physiotherapy via pose analysis and feedback UI.</p>
+                  <!-- Optional links (add if you have them) -->
+                  <!-- <a class="link" href="POSTER_LINK" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-1"></i>Poster</a> -->
+                  <!-- <a class="link ms-3" href="PAPER_LINK" target="_blank" rel="noopener"><i class="bi bi-file-earmark-text me-1"></i>Paper</a> -->
+                </div>
+              </div>
+
+              <!-- Add more poster cards like the above if needed -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ==================== EXPERIENCE ==================== -->
   <section class="section" id="experience">
@@ -784,7 +829,7 @@
       }
 
       /* NAV ACTIVE LINK ON SCROLL */
-      const sectionIds = ['about','skills','projects','experience','education','contact'];
+      const sectionIds = ['about','skills','projects','poster','experience','education','contact'];
       const navLinks = sectionIds.map(id => ({ id, el: document.querySelector(`a.nav-link[href="#${id}"]`) }));
       if ('IntersectionObserver' in window){
         const obs = new IntersectionObserver(entries=>{
@@ -917,7 +962,7 @@
 
   <script type="text/javascript">
     window.$crisp=[]; 
-    window.CRISP_WEBSITE_ID="6f0f8c5d-5bbb-4972-9dd9-b2a22b4c8a5f";  // ← replace this
+    window.CRISP_WEBSITE_ID="6f0f8c5d-5bbb-4972-9dd9-b2a22b4c8a5f"; 
     (function(){
         var d=document,s=d.createElement("script");
         s.src="https://client.crisp.chat/l.js"; s.async=1;
